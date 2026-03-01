@@ -17,6 +17,15 @@ initDb();
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+app.get("/login.html", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "login.html"));
+});
+
+app.get("/", (req, res) => {
+  res.redirect("/login.html");
+});
+console.log("DIR SERVER:", __dirname);
+console.log("Public path:", path.join(__dirname, "public"));
 
 async function seedIfEmpty() {
   const agentCount = await get("SELECT COUNT(*) as c FROM agents");
